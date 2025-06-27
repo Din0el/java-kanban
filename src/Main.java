@@ -1,31 +1,39 @@
+import manager.TaskManager;
+import status.Status;
+import tasks.Epic;
+import tasks.Subtask;
+import tasks.Task;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
 
         TaskManager taskManager = new TaskManager();
 
-        Task taskNew = new Task("Собрать коробки", "Положить в багажник");
-        Task taskUpdate = taskManager.addTask(taskNew);
-        System.out.println(taskUpdate);
+        Task task = new Task("Описание", "Дубляж");
+        Task newTask = taskManager.addTask(task);
+        System.out.println(newTask);
 
-        Task taskCreate = new Task(taskNew.getId(), "Пойти поработать", "Взять еду",
-                Status.IN_PROGRESS);
-        Task taskNewCreate = taskManager.updateTask(taskCreate);
-        System.out.println(taskNewCreate);
+        Task createTask = new Task("Описание", "Дубляж");
+        Task newCreateTask = taskManager.updateTask(createTask);
+        System.out.println(newCreateTask);
 
 
-        Epic flagUpdate = new Epic("Поехать на отдых", "Не забыть жену");
-        taskManager.addEpic(flagUpdate);
-        System.out.println(flagUpdate);
-        Subtask flagUpdateSubtask1 = new Subtask("Купить продукты", "Взять список",
-                flagUpdate.getId());
-        Subtask flagUpdateSubtask2 = new Subtask("Провести уборку", "Использовать средства",
-                flagUpdate.getId());
-        taskManager.addSubtask(flagUpdateSubtask1);
-        taskManager.addSubtask(flagUpdateSubtask2);
-        System.out.println(flagUpdate);
-        flagUpdateSubtask2.setStatus(Status.DONE);
-        taskManager.updateSubtask(flagUpdateSubtask2);
-        System.out.println(flagUpdate);
+        Epic createEpic = new Epic("Описание", "Дубляж");
+        taskManager.addEpic(createEpic);
+        System.out.println(createEpic);
+        Subtask createSubtask1 = new Subtask("Описание", "Дубляж",
+                createEpic.getId());
+        Subtask createSubtask2 = new Subtask("Описание", "Дубляж",
+                createEpic.getId());
+        taskManager.addSubtask(createSubtask1);
+        taskManager.addSubtask(createSubtask2);
+        System.out.println(createEpic);
+        createSubtask2.setStatus(Status.DONE);
+        taskManager.updateSubtask(createSubtask2);
+        System.out.println(createEpic);
     }
 }
