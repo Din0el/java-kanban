@@ -18,7 +18,9 @@ public class Subtask extends Task {
         this.epicID = epicID;
     }
 
-    public int getEpicID() { return epicID; }
+    public int getEpicID() {
+        return epicID;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -36,7 +38,7 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
-        return "Subtask{" +
+        return "Субтаск{" +
                 "name='" + getName() + '\'' +
                 ", description='" + getDescription() + '\'' +
                 ", id=" + getId() +

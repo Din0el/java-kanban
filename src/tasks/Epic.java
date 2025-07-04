@@ -1,9 +1,7 @@
 package tasks;
 
 import status.Status;
-import tasks.Subtask;
-import tasks.Task;
-
+import java.util.ArrayList;
 import java.util.*;
 
 public class Epic extends Task {
@@ -18,15 +16,21 @@ public class Epic extends Task {
         super(name, description, status, id);
     }
 
-    public void addSubtask(Subtask subtask) { subtaskList.add(subtask); }
+    public void addSubtask(Subtask subtask) {
+        subtaskList.add(subtask);
+    }
 
-    public void clearSubtasks() { subtaskList.clear(); }
+    public void clearSubtasks() {
+        subtaskList.clear();
+    }
 
-    public ArrayList<Subtask> getSubtaskList() { return subtaskList; }
+    public ArrayList<Subtask> getSubtaskList() {
+        return subtaskList;
+    }
 
-    public void setSubtaskList(ArrayList<Subtask> subtaskList) { this.subtaskList = subtaskList; }
-
-    //public void setSubtaskList(int id) { subtaskList.add(id); }
+    public void setSubtaskList(ArrayList<Subtask> subtaskList) {
+        this.subtaskList = subtaskList;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -44,7 +48,7 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        return "Epic{" +
+        return "Эпик{" +
                 "name= " + getName() + '\'' +
                 ", description = " + getDescription() + '\'' +
                 ", id=" + getId() +
