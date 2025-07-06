@@ -6,7 +6,7 @@ import tasks.Subtask;
 import tasks.Task;
 
 public static void main(String[] args) {
-    TaskManager taskManager = Managers.getDefault();
+    TaskManager taskManager = Managers.getDefaultTaskManager();
 
     Task newTask  = new Task("Описание", "Дубляж");
     taskManager.addTask(newTask );

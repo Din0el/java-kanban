@@ -8,11 +8,11 @@ class ManagersTest {
 
     @Test
     void getDefaultShouldInitializeInMemoryTaskManager() {
-        assertInstanceOf(InMemoryTaskManager.class, Managers.getDefault());
+        assertInstanceOf(InMemoryTaskManager.class, Managers.getDefaultTaskManager());
     }
 
     @Test
     void getDefaultHistoryShouldInitializeInMemoryHistoryManager() {
-        assertInstanceOf(InMemoryHistoryManager.class, Managers.getDefaultHistory());
+        assertInstanceOf(InMemoryHistoryManager.class, Managers.getDefaultHistoryManager());
     }
 }

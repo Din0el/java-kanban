@@ -10,8 +10,7 @@ public class InMemoryTaskManager implements TaskManager {
     private final Map<Integer, Task> tasks = new HashMap<>();
     private final Map<Integer, Epic> epics = new HashMap<>();
     private final Map<Integer, Subtask> subtasks = new HashMap<>();
-    private final HistoryManager historyManager = Managers.getDefaultHistory();
-
+    private final HistoryManager historyManager = Managers.getDefaultHistoryManager();
 
     private int nextID = 0;
 
@@ -44,19 +43,34 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Task updateTask(Task task) {
+    public Task updateTask(Task task) { //как ты просил просто обновляет
         Integer taskID = task.getId();
-        if (taskID == null || !tasks.containsKey(taskID)) {
-            return null;
-        }
-        tasks.replace(taskID, task);
+        tasks.put(taskID, task);
         return task;
     }
 
     @Override
-    public Epic updateEpic(Epic epic) {
+    public Epic updateEpic(Epic epic) { //как ты просил просто обновляет
         Integer epicID = epic.getId();
-        if (epicID == null || !epics.containsKey(epicID)) {
+        epics.put(epicID, epic);
+        updateEpicStatus(epic);
+        return epic;
+    }
+
+    /*@Override                     //   || ВАРИАНТ
+    public Task updateTask(Task task) { //В случае если тебя не устроит , я передал прошлый вариант под put
+        Integer taskID = task.getId();
+        if (taskID == null) {
+            return null;
+        }
+        tasks.put(taskID, task);
+        return task;
+    }
+
+    @Override                         //   || ВАРИАНТ
+    public Epic updateEpic(Epic epic) { //В случае если тебя не устроит , я передал прошлый вариант под put
+        Integer epicID = epic.getId();
+        if (epicID == null) {
             return null;
         }
         Epic oldEpic = epics.get(epicID);
@@ -66,7 +80,7 @@ public class InMemoryTaskManager implements TaskManager {
                 subtasks.remove(subtask.getId());
             }
         }
-        epics.replace(epicID, epic);
+        epics.put(epicID, epic);
         ArrayList<Subtask> newEpicSubtaskList = epic.getSubtaskList();
         if (!newEpicSubtaskList.isEmpty()) {
             for (Subtask subtask : newEpicSubtaskList) {
@@ -77,20 +91,30 @@ public class InMemoryTaskManager implements TaskManager {
         return epic;
     }
 
-    @Override
-    public Subtask updateSubtask(Subtask subtask) {
+    @Override                                   //   || ВАРИАНТ
+    public Subtask updateSubtask(Subtask subtask) { //В случае если тебя не устроит , я передал прошлый вариант под put
         Integer subtaskID = subtask.getId();
-        if (subtaskID == null || !subtasks.containsKey(subtaskID)) {
+        if (subtaskID == null) {
             return null;
         }
+        subtasks.put(subtaskID, subtask);
         int epicID = subtask.getEpicID();
-        Subtask oldSubtask = subtasks.get(subtaskID);
-        subtasks.replace(subtaskID, subtask);
         Epic epic = epics.get(epicID);
         ArrayList<Subtask> subtaskList = epic.getSubtaskList();
-        subtaskList.remove(oldSubtask);
+        subtaskList.remove(subtask);
         subtaskList.add(subtask);
         epic.setSubtaskList(subtaskList);
+        updateEpicStatus(epic);
+        return subtask;
+    }*/
+
+
+    @Override
+    public Subtask updateSubtask(Subtask subtask) { //как ты просил просто обновляет
+        Integer subtaskID = subtask.getId();
+        subtasks.put(subtaskID, subtask);
+        int epicID = subtask.getEpicID();
+        Epic epic = epics.get(epicID);
         updateEpicStatus(epic);
         return subtask;
     }
